@@ -97,11 +97,11 @@ function SignUp() {
               >
                 <div className="flex flex-col gap-2">
                   <div className="flex items-center">
-                    <RadioGroupItem value="admin" id="role-admin" />
+                    <RadioGroupItem value="ADMIN" id="role-admin" />
                     <Label htmlFor="role-admin" className="ml-2">Admin</Label>
                   </div>
                   <div className="flex items-center">
-                    <RadioGroupItem value="user" id="role-user" />
+                    <RadioGroupItem value="USER" id="role-user" />
                     <Label htmlFor="role-user" className="ml-2">User</Label>
                   </div>
                 </div>

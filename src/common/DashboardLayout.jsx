@@ -56,19 +56,7 @@ import {
                 </a>
               </nav>
             </div>
-            {/* <div className="mt-auto p-4">
-            <Card className="sticky bottom-0">
-                <CardHeader className="p-2 pt-0 md:p-4 ">
-                  <CardTitle>Need help?</CardTitle>
-                  <CardDescription>HR Help Desk</CardDescription>
-                </CardHeader>
-                <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-                  <Button size="sm" className="w-full">
-                    Help
-                  </Button>
-                </CardContent>
-              </Card>
-            </div> */}
+           
           </div>
         </div>
         <div className="flex flex-col">

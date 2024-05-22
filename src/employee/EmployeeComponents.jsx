@@ -30,22 +30,23 @@ const EmployeeComponent = () => {
 
   useEffect(() => {
     if (id) {
-      getEmployee(id)
-        .then((response) => {
-          const employee = response.data;
-          setFirstName(employee.firstName);
-          setLastName(employee.setLastName);
-          setEmail(employee.email);
-          setPhone(employee.phone);
-          setDepartment(employee.department);
-          setGender(employee.gender);
-          setTitle(employee.title);
-        })
-        .catch((error) => {
-          console.error("Failed to fetch employee:", error);
-        });
+        getEmployee(id)
+            .then((response) => {
+                const employee = response.data;
+                setFirstName(employee.firstName || "");
+                setLastName(employee.lastName || "");   
+                setEmail(employee.email || "");
+                setPhone(employee.phone || "");
+                setDepartment(employee.department || "");
+                setGender(employee.gender || "");
+                setTitle(employee.title || "");
+            })
+            .catch((error) => {
+                console.error("Failed to fetch employee:", error);
+            });
     }
-  }, [id]);
+}, [id]);
+
 
   const handleFirstNameChange = (e) => setFirstName(e.target.value);
   const handleLastNameChange = (e) => setLastName(e.target.value);
@@ -88,42 +89,43 @@ const EmployeeComponent = () => {
     let valid = true;
     const errors = {};
 
-    if (!firstName.trim()) {
-      errors.name = "First Name is required";
-      valid = false;
+    if (!firstName?.trim()) {
+        errors.firstName = "First Name is required";
+        valid = false;
     }
 
-    if (!lastName.trim()) {
-      errors.name = "Last Name is required";
-      valid = false;
+    if (!lastName?.trim()) {
+        errors.lastName = "Last Name is required";
+        valid = false;
     }
-    if (!email.trim()) {
-      errors.email = "Email is required";
-      valid = false;
-    }
-
-    if (!phone.trim()) {
-      errors.phone = "Phone is required";
-      valid = false;
+    if (!email?.trim()) {
+        errors.email = "Email is required";
+        valid = false;
     }
 
-    if (!gender.trim()) {
-      errors.gender = "Gender is required";
-      valid = false;
+    if (!phone?.trim()) {
+        errors.phone = "Phone is required";
+        valid = false;
     }
 
-    if (!department.trim()) {
-      errors.department = "Department is required";
-      valid = false;
+    if (!gender?.trim()) {
+        errors.gender = "Gender is required";
+        valid = false;
     }
 
-    if (!title.trim()) {
-      errors.title = "Title is required";
-      valid = false;
+    if (!department?.trim()) {
+        errors.department = "Department is required";
+        valid = false;
+    }
+
+    if (!title?.trim()) {
+        errors.title = "Title is required";
+        valid = false;
     }
 
     return valid;
-  };
+};
+
 
   const getPageTitle = () => {
     return id ? "Update Employee" : "Add Employee";

@@ -21,7 +21,7 @@ function Login() {
       });
 
       if (response.ok) {
-        let data = null;
+        let data;
         try {
           data = await response.json(); // Attempt to parse as JSON
         } catch (jsonError) {
@@ -32,18 +32,26 @@ function Login() {
 
         console.log("Login successful:", data);
 
-        if (data && data.role) {
-          if (data.role === "ADMIN") {
-            navigate("/admin-dashboard");
-          } else if (data.role === "USER") {
-            navigate("/user-dashboard");
+        if (data && data.userId) {
+          localStorage.setItem('userId', data.userId);
+          localStorage.setItem('role', data.role);
+
+          if (data.role) {
+            if (data.role === "ADMIN") {
+              navigate("/admin-dashboard");
+            } else if (data.role === "USER") {
+              navigate("/user-dashboard");
+            } else {
+              console.warn("Unknown role:", data.role);
+              alert("Unknown user role. Unable to proceed.");
+            }
           } else {
-            console.warn("Unknown role:", data.role);
-            alert("Unknown user role. Unable to proceed.");
+            console.warn("Role data missing");
+            alert("Role information not available. Please contact support.");
           }
         } else {
-          console.warn("Role data missing");
-          alert("Role information not available. Please contact support.");
+          console.warn("User ID missing in response");
+          alert("User information is missing in the response. Please contact support.");
         }
       } else {
         console.warn("Login failed with status:", response.status);

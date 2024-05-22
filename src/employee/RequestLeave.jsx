@@ -74,9 +74,9 @@ function RequestLeave() {
         leaveType,
         reason,
         status,
-        employee: {
-          empId: userId, // Change this to the appropriate ID
-        },
+        user:{
+          userId, 
+        }
       };
 
       const response = await axios.post("http://localhost:8080/api/leave-requests", leaveRequest);

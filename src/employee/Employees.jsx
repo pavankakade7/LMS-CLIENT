@@ -59,7 +59,7 @@ function Employees() {
       <div className="flex items-center">
         <Dialog>
           <DialogTrigger asChild>
-            <Button onClick={addNewEmployee}>Add Employees</Button>
+            <Button onClick={addNewEmployee} >Add Employees</Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>

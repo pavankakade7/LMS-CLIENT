@@ -9,8 +9,8 @@ import { ArrowUpRight } from "lucide-react";
 
 async function getEmpId() {
   try {
-    
-    const response = await fetch('http://localhost:8080/api/employees/id');
+    const id = localStorage.getItem('userId');
+    const response = await fetch(`http://localhost:8080/api/employees/${id}`);
     if (!response.ok) {
       throw new Error('Failed to fetch employee ID');
     }
@@ -28,7 +28,7 @@ function UserDashboard() {
   useEffect(() => {
     const fetchLeaveRequests = async () => {
       try {
-        const empId = await getEmpId();
+        const empId = localStorage.getItem('userId');
         const response = await fetch(`http://localhost:8080/api/leave-requests/empId/${empId}`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
