@@ -24,6 +24,7 @@ const EmployeeComponent = () => {
   const [gender, setGender] = useState("");
   const [department, setDepartment] = useState("");
   const [title, setTitle] = useState("");
+  // const [userId, setUserId] = useState("");
 
   const { id } = useParams();
   const navigator = useNavigate();
@@ -40,6 +41,7 @@ const EmployeeComponent = () => {
                 setDepartment(employee.department || "");
                 setGender(employee.gender || "");
                 setTitle(employee.title || "");
+                // setUserId(employee.userId || "");
             })
             .catch((error) => {
                 console.error("Failed to fetch employee:", error);
@@ -55,6 +57,7 @@ const EmployeeComponent = () => {
   const handleGenderChange = (e) => setGender(e.target.value);
   const handleDepartmentChange = (e) => setDepartment(e.target.value);
   const handleTitleChange = (e) => setTitle(e.target.value);
+  // const handleUserIdChange = (e) => setUserId(e.target.value);
 
   const saveOrUpdateEmployee = (e) => {
     e.preventDefault();
@@ -68,6 +71,7 @@ const EmployeeComponent = () => {
         gender,
         department,
         title,
+        // userId
       };
       if (id) {
         updateEmployee(id, employee)
@@ -122,6 +126,13 @@ const EmployeeComponent = () => {
         errors.title = "Title is required";
         valid = false;
     }
+
+    
+  //   if (!userId?.trim()) {
+  //     errors.userId = "userId is required";
+  //     valid = false;
+  // }
+
 
     return valid;
 };
@@ -200,6 +211,15 @@ const EmployeeComponent = () => {
                 value={title}
                 onChange={handleTitleChange}
               />
+
+              {/* <CardHeader>
+                <CardTitle>User Id</CardTitle>
+              </CardHeader>
+              <Input
+                placeholder="Enter Your Title"
+                value={userId}
+                onChange={handleUserIdChange}
+              /> */}
 
               <CardFooter>
                 <Button type="submit">Save</Button>

@@ -43,9 +43,9 @@ function RequestLeave() {
   const [endDate, setEndDate] = useState(null);
   const [leaveType, setLeaveType] = useState("");
   const [reason, setReason] = useState("");
-  const [status, setStatus] = useState("pending");
+  const [status, setStatus] = useState("PENDING");
 
-  const { userId } = useParams(); // Make sure this is correct
+  const { userId } = useParams();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -74,17 +74,18 @@ function RequestLeave() {
         leaveType,
         reason,
         status,
-        user:{
-          userId, 
-        }
+        employee: {
+          empId: userId,
+        },
       };
 
       const response = await axios.post("http://localhost:8080/api/leave-requests", leaveRequest);
 
       if (response.status === 201) {
         console.log("Leave request submitted successfully.");
-        setStartDate("");
-        setEndDate("");
+        // console.log(leaveRequest.data.value);
+        setStartDate(null);
+        setEndDate(null);
         setLeaveType("");
         setReason("");
         setStatus("PENDING");

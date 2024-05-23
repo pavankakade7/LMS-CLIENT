@@ -117,6 +117,7 @@ function Employees() {
                     <th className="px-4 py-2">Gender</th>
                     <th className="px-4 py-2">Department</th>
                     <th className="px-4 py-2">Title</th>
+                    {/* <th className="px-4 py-2">User Id</th> */}
                     <th className="px-4 py-2">Actions</th>
                   </tr>
                 </thead>
@@ -131,6 +132,7 @@ function Employees() {
                       <TableCell>{employee.gender}</TableCell>
                       <TableCell>{employee.department}</TableCell>
                       <TableCell>{employee.title}</TableCell>
+                      {/* <TableCell>{employee.userId}</TableCell> */}
                       <TableCell>
                         <div className="flex items-center space-x-2">
                           <Button variant="secondary" onClick={() => updateEmployee(employee.empId)}>Update</Button>

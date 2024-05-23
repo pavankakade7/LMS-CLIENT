@@ -66,13 +66,10 @@ function AdminDashboard() {
   return (
     <DashboardLayout>
       <div className="flex items-center">
-        <RequestLeave></RequestLeave>
+      <RequestLeave onLeaveRequestApproval={handleLeaveRequestApproval} />
       </div>
       <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-        <div className="flex items-center">
-        <RequestLeave onLeaveRequestApproval={handleLeaveRequestApproval} />
-      </div>
       <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
