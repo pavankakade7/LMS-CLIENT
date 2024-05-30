@@ -21,3 +21,17 @@ export const addUser= (user) => axios.post(REST_API_USER , user);
 
 // leave -request
 export const leaveRequest = (userId) => axios.post(REST_API_LEAVE + userId)
+
+
+
+const approveLeaveRequest = (id) => {
+    return axios.put(`${REST_API_LEAVE}/${id}/approve`);
+};
+
+const rejectLeaveRequest = (id) => {
+    return axios.put(`${REST_API_LEAVE}/${id}/reject`);
+};
+
+
+
+export { approveLeaveRequest, rejectLeaveRequest };

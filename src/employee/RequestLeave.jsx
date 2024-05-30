@@ -11,7 +11,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { useNavigate, useParams } from "react-router-dom";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -37,6 +36,7 @@ function RequestLeave() {
     firstName: "",
     lastName: "",
     email: "",
+    empId: null,
   });
 
   const [startDate, setStartDate] = useState(null);
@@ -45,7 +45,7 @@ function RequestLeave() {
   const [reason, setReason] = useState("");
   const [status, setStatus] = useState("PENDING");
 
-  const { userId } = useParams();
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -75,15 +75,14 @@ function RequestLeave() {
         reason,
         status,
         employee: {
-          empId: userId,
+          empId: userId
         },
       };
 
-      const response = await axios.post("http://localhost:8080/api/leave-requests", leaveRequest);
+      const response = await axios.post(`http://localhost:8080/api/leave-requests/${userId}`, leaveRequest);
 
       if (response.status === 201) {
         console.log("Leave request submitted successfully.");
-        // console.log(leaveRequest.data.value);
         setStartDate(null);
         setEndDate(null);
         setLeaveType("");
@@ -93,7 +92,7 @@ function RequestLeave() {
         console.error("Error submitting leave request");
       }
     } catch (error) {
-      console.error("Error submitting leave request:", error);
+      console.error("Error submitting leave request:", error); 
     }
   };
 
