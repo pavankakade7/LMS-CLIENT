@@ -11,6 +11,7 @@ import RequestLeave from './employee/RequestLeave'
 import AdminDashboard from './admin/AdminDashboard'
 import Logout from './login/Logout'
 import DashboardLayout from './common/DashboardLayout'
+import EmployeeList from './employee/EmployeeList'
 
 
 
@@ -26,6 +27,7 @@ function App() {
         <Route path='/login' element= {<Login/>} />
         <Route path='/signup' element= {<SignUp/>} />
         <Route path='/dashboard' element= {<DashboardLayout/>} />
+        <Route path='/all-employee' element= {<EmployeeList/>} />
         <Route path='/user-dashboard' element= {<UserDashboard/>} />
         <Route path='/admin-dashboard' element= {<AdminDashboard/>} />
         <Route path='/request-leave/:userId' element= {<RequestLeave/>} />
