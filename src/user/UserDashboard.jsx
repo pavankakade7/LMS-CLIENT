@@ -10,18 +10,11 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 function UserDashboard() {
   const [leaveRequests, setLeaveRequests] = useState([]);
-  const [leaveData, setLeaveData] = useState({
-    casualLeaves: 7,
-    medicalLeaves: 7,
-    privilegedLeaves: 20,
-    unpaidLeaves: 0
-  });
-
+  const empId = localStorage.getItem("userId");
   useEffect(() => {
     const fetchLeaveRequests = async () => {
       try {
-        const empId = localStorage.getItem('userId');
-        const response = await fetch(`http://localhost:8080/api/leave-requests/empId/${empId}`);
+        const response = await fetch(`http://localhost:8080/api/leave-requests/user/${empId}`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -35,18 +28,19 @@ function UserDashboard() {
     fetchLeaveRequests();
   }, []);
 
-  const handleLeaveRequestApproval = (type) => {
-    // Assuming this function is called when admin approves a leave request
-    setLeaveData(prevLeaveData => ({
-      ...prevLeaveData,
-      [type]: prevLeaveData[type] + 1
-    }));
-  };
+  const [leaveData, setLeaveData] = useState({
+    casualLeaves: 7,
+    medicalLeaves: 7,
+    privilegedLeaves: 20,
+    unpaidLeaves: 0,
+  });
+
+ 
 
   return (
     <DashboardLayout>
       <div className="flex items-center">
-        <RequestLeave onLeaveRequestApproval={handleLeaveRequestApproval} />
+        <RequestLeave  />
       </div>
       <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
@@ -103,15 +97,17 @@ function UserDashboard() {
                     <TableHeader>
                       <TableRow>
                         <TableHead>Employee Name</TableHead>
-                        <TableHead>Department</TableHead>
-                        <TableHead className="hidden sm:table-cell">Apply Date</TableHead>
+                        <TableHead className="hidden sm:table-cell">Start Date</TableHead>
+                        <TableHead className="hidden sm:table-cell">End Date</TableHead>
                         <TableHead className="hidden sm:table-cell">Leave Type</TableHead>
-                        <TableHead className="text-right hidden sm:table-cell">Status</TableHead>
+                        <TableHead className="hidden sm:table-cell">Status</TableHead>
+                        {/* <TableHead className="hidden sm:table-cell text-right">Actions</TableHead> */}
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {leaveRequests.map((request, index) => {
                         const { employee } = request;
+
                         return (
                           <TableRow key={index}>
                             <TableCell>
@@ -122,14 +118,26 @@ function UserDashboard() {
                                 {employee ? employee.email : "No Email"}
                               </div>
                             </TableCell>
-                            <TableCell>{employee ? employee.department : "No Department"}</TableCell>
                             <TableCell className="hidden sm:table-cell">{request.startDate}</TableCell>
+                            <TableCell className="hidden sm:table-cell">{request.endDate}</TableCell>
                             <TableCell className="hidden sm:table-cell">{request.leaveType}</TableCell>
                             <TableCell className="text-right hidden sm:table-cell">
                               <Badge className="text-xs" variant={request.status === "PENDING" ? "secondary" : "outline"}>
                                 {request.status}
                               </Badge>
                             </TableCell>
+                            {/* <TableCell className="text-right hidden sm:table-cell">
+                              {request.status === "PENDING" && (
+                                <>
+                                  <Button size="sm" variant="outline" onClick={() => handleLeaveRequestApproval(request.leaveId, "APPROVED")}>
+                                    Approve
+                                  </Button>
+                                  <Button size="sm" variant="outline" onClick={() => handleLeaveRequestApproval(request.leaveId, "REJECTED")}>
+                                    Reject
+                                  </Button>
+                                </>
+                              )}
+                            </TableCell> */}
                           </TableRow>
                         );
                       })}
@@ -138,6 +146,7 @@ function UserDashboard() {
                 </ScrollArea>
               </CardContent>
             </Card>
+
             <Card>
               <CardHeader>
                 <CardTitle>Upcoming Holidays</CardTitle>

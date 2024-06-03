@@ -46,6 +46,7 @@ function RequestLeave() {
   const [status, setStatus] = useState("PENDING");
 
   const userId = localStorage.getItem("userId");
+  // const leaveId = localStorage.getItem("leaveId");
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -78,11 +79,19 @@ function RequestLeave() {
           empId: userId
         },
       };
-
-      const response = await axios.post(`http://localhost:8080/api/leave-requests/${userId}`, leaveRequest);
-
+  
+      const response = await axios.post(`http://localhost:8080/api/leave-requests`, leaveRequest);
+  
       if (response.status === 201) {
-        console.log("Leave request submitted successfully.");
+        const createdLeaveRequest = response.data; // Assuming the leave request object with leaveId is returned in the response
+        const { leaveId } = createdLeaveRequest; // Extracting the leaveId from the response
+  
+        console.log("Leave request submitted successfully with leaveId:", leaveId);
+  
+        // Save leaveId to localStorage or state as needed
+        localStorage.setItem('leaveId', leaveId);
+  
+        // Resetting form fields
         setStartDate(null);
         setEndDate(null);
         setLeaveType("");
@@ -95,6 +104,7 @@ function RequestLeave() {
       console.error("Error submitting leave request:", error); 
     }
   };
+  
 
   return (
     <AlertDialog>
