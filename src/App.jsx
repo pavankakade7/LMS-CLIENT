@@ -12,6 +12,9 @@ import AdminDashboard from './admin/AdminDashboard'
 import Logout from './login/Logout'
 import DashboardLayout from './common/DashboardLayout'
 import EmployeeList from './employee/EmployeeList'
+import AddEmployee from './employee/AddEmployee'
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 
 
@@ -26,6 +29,7 @@ function App() {
         <Route path='/' element= {<Login/>} />
         <Route path='/login' element= {<Login/>} />
         <Route path='/signup' element= {<SignUp/>} />
+        <Route path='/add-employee' element={<AddEmployee/>}/>
         <Route path='/dashboard' element= {<DashboardLayout/>} />
         <Route path='/all-employee' element= {<EmployeeList/>} />
         <Route path='/user-dashboard' element= {<UserDashboard/>} />

@@ -5,6 +5,10 @@ import {
     Users,
     Package2,
     CalendarIcon,
+    User2,
+    User2Icon,
+    UserCircle,
+    UserPlus,
   } from "lucide-react";
   import { Button } from "@/components/ui/button";
   import { Card, CardContent, CardHeader, CardDescription,CardTitle } from "@/components/ui/card";
@@ -49,6 +53,10 @@ import {
                 <a href="/leave-calendar" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">
                   <CalendarIcon className="h-4 w-4" />
                   Leave Calendar
+                </a>
+                <a href="/add-employee" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+                  <UserPlus className="h-4 w-4" />
+                  Add Employee
                 </a>
                 <a href="/all-employee" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">
                   <Users className="h-4 w-4" />

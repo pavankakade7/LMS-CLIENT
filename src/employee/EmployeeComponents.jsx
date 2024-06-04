@@ -20,10 +20,12 @@ const EmployeeComponent = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [gender, setGender] = useState("");
-  const [department, setDepartment] = useState("");
-  const [title, setTitle] = useState("");
+  const [role, setRole] = useState("");
+  const [password, setPassowrd] = useState("");
+  // const [phone, setPhone] = useState("");
+  // const [gender, setGender] = useState("");
+  // const [department, setDepartment] = useState("");
+  // const [title, setTitle] = useState("");
   // const [userId, setUserId] = useState("");
 
   const { id } = useParams();
@@ -37,10 +39,11 @@ const EmployeeComponent = () => {
                 setFirstName(employee.firstName || "");
                 setLastName(employee.lastName || "");   
                 setEmail(employee.email || "");
-                setPhone(employee.phone || "");
-                setDepartment(employee.department || "");
-                setGender(employee.gender || "");
-                setTitle(employee.title || "");
+                setPassowrd(employee.password || "");
+                // setPhone(employee.phone || "");
+                // setDepartment(employee.department || "");
+                // setGender(employee.gender || "");
+                // setTitle(employee.title || "");
                 // setUserId(employee.userId || "");
             })
             .catch((error) => {
@@ -53,10 +56,11 @@ const EmployeeComponent = () => {
   const handleFirstNameChange = (e) => setFirstName(e.target.value);
   const handleLastNameChange = (e) => setLastName(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
-  const handlePhoneChange = (e) => setPhone(e.target.value);
-  const handleGenderChange = (e) => setGender(e.target.value);
-  const handleDepartmentChange = (e) => setDepartment(e.target.value);
-  const handleTitleChange = (e) => setTitle(e.target.value);
+  const handlePasswordChanage = (e) => setPassowrd(e.target.value);
+  // const handlePhoneChange = (e) => setPhone(e.target.value);
+  // const handleGenderChange = (e) => setGender(e.target.value);
+  // const handleDepartmentChange = (e) => setDepartment(e.target.value);
+  // const handleTitleChange = (e) => setTitle(e.target.value);
   // const handleUserIdChange = (e) => setUserId(e.target.value);
 
   const saveOrUpdateEmployee = (e) => {
@@ -67,10 +71,10 @@ const EmployeeComponent = () => {
         firstName,
         lastName,
         email,
-        phone,
-        gender,
-        department,
-        title,
+        // phone,
+        // gender,
+        // department,
+        // title,
         // userId
       };
       if (id) {
@@ -107,25 +111,30 @@ const EmployeeComponent = () => {
         valid = false;
     }
 
-    if (!phone?.trim()) {
-        errors.phone = "Phone is required";
-        valid = false;
+    if(!password?.trim()){
+      errors.password = "Password is required";
+      valid= false;
     }
 
-    if (!gender?.trim()) {
-        errors.gender = "Gender is required";
-        valid = false;
-    }
+    // if (!phone?.trim()) {
+    //     errors.phone = "Phone is required";
+    //     valid = false;
+    // }
 
-    if (!department?.trim()) {
-        errors.department = "Department is required";
-        valid = false;
-    }
+    // if (!gender?.trim()) {
+    //     errors.gender = "Gender is required";
+    //     valid = false;
+    // }
 
-    if (!title?.trim()) {
-        errors.title = "Title is required";
-        valid = false;
-    }
+    // if (!department?.trim()) {
+    //     errors.department = "Department is required";
+    //     valid = false;
+    // }
+
+    // if (!title?.trim()) {
+    //     errors.title = "Title is required";
+    //     valid = false;
+    // }
 
     
   //   if (!userId?.trim()) {
@@ -176,50 +185,50 @@ const EmployeeComponent = () => {
                 onChange={handleEmailChange}
               />
 
-              <CardHeader>
+              {/* <CardHeader>
                 <CardTitle>Phone</CardTitle>
               </CardHeader>
               <Input
                 placeholder="Enter Your Phone"
                 value={phone}
                 onChange={handlePhoneChange}
-              />
+              /> */}
 
-              <CardHeader>
+              {/* <CardHeader>
                 <CardTitle>Gender</CardTitle>
               </CardHeader>
               <Input
                 placeholder="Enter Your Gender"
                 value={gender}
                 onChange={handleGenderChange}
-              />
+              /> */}
 
-              <CardHeader>
+              {/* <CardHeader>
                 <CardTitle>Department</CardTitle>
               </CardHeader>
               <Input
                 placeholder="Enter Your Department"
                 value={department}
                 onChange={handleDepartmentChange}
-              />
+              /> */}
 
-              <CardHeader>
+              {/* <CardHeader>
                 <CardTitle>Title</CardTitle>
               </CardHeader>
               <Input
                 placeholder="Enter Your Title"
                 value={title}
                 onChange={handleTitleChange}
-              />
+              /> */}
 
-              {/* <CardHeader>
-                <CardTitle>User Id</CardTitle>
+              <CardHeader>
+                <CardTitle>Password</CardTitle>
               </CardHeader>
               <Input
-                placeholder="Enter Your Title"
-                value={userId}
-                onChange={handleUserIdChange}
-              /> */}
+                placeholder="Enter Your Password"
+                value={password}
+                onChange={handlePasswordChanage}
+              />
 
               <CardFooter>
                 <Button type="submit">Save</Button>
