@@ -10,7 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 function AdminDashboard() {
   const [leaveRequests, setLeaveRequests] = useState([]);
-  // const id = localStorage.getItem("userId");
+
   useEffect(() => {
     const fetchLeaveRequests = async () => {
       try {
@@ -19,7 +19,10 @@ function AdminDashboard() {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        setLeaveRequests(data);
+
+        // Sort the leave requests by leaveId in descending order
+        const sortedData = data.sort((a, b) => b.leaveId - a.leaveId);
+        setLeaveRequests(sortedData);
       } catch (error) {
         console.error("Error fetching leave requests:", error);
       }
@@ -37,7 +40,6 @@ function AdminDashboard() {
 
   const handleLeaveRequestApproval = async (leaveId, newStatus) => {
     if (!leaveId) {
-      // console.log(id);
       console.error("Invalid leave request ID");
       return;
     }
@@ -227,4 +229,3 @@ function AdminDashboard() {
 }
 
 export default AdminDashboard;
-

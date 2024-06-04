@@ -11,6 +11,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 function UserDashboard() {
   const [leaveRequests, setLeaveRequests] = useState([]);
   const empId = localStorage.getItem("userId");
+
   useEffect(() => {
     const fetchLeaveRequests = async () => {
       try {
@@ -19,14 +20,17 @@ function UserDashboard() {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        setLeaveRequests(data);
+
+        // Sort the leave requests by leaveId in descending order
+        const sortedData = data.sort((a, b) => b.leaveId - a.leaveId);
+        setLeaveRequests(sortedData);
       } catch (error) {
         console.error("Error fetching leave requests:", error);
       }
     };
 
     fetchLeaveRequests();
-  }, []);
+  }, [empId]);
 
   const [leaveData, setLeaveData] = useState({
     casualLeaves: 7,
@@ -34,7 +38,6 @@ function UserDashboard() {
     privilegedLeaves: 20,
     unpaidLeaves: 0,
   });
-
  
 
   return (

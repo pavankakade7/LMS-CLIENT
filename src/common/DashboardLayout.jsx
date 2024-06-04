@@ -20,6 +20,7 @@ import {
   const DashboardLayout = ({ children }) => {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const role = localStorage.getItem("role");
   
     const handleLogin = () => {
       setIsLoggedIn(true);
@@ -54,10 +55,17 @@ import {
                   <CalendarIcon className="h-4 w-4" />
                   Leave Calendar
                 </a>
-                <a href="/add-employee" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+               
+                {role === "ADMIN" ? ( 
+                <a
+                  href="/add-employee"
+                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                >
                   <UserPlus className="h-4 w-4" />
                   Add Employee
                 </a>
+              ) : null}
+              
                 <a href="/all-employee" className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">
                   <Users className="h-4 w-4" />
                   Employees

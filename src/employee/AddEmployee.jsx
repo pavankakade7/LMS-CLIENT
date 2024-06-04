@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,38 +14,25 @@ import axios from "axios"; // Use axios for HTTP requests
 import { useNavigate } from "react-router-dom"; // To navigate on successful sign-up
 import DashboardLayout from "@/common/DashboardLayout";
 
-import React from 'react';
-import {
-  MDBInput,
-  MDBCol,
-  MDBRow,
-  MDBCheckbox,
-  MDBBtn,
-  MDBIcon,
-  MDBRadio 
-} from 'mdb-react-ui-kit';
-
 const AddEmployee = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("user");
-  // const [error, setError] = useState(null);
+  const [role, setRole] = useState("USER");
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleSignUp = async () => {
+  const handleSignUp = async (event) => {
+    event.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/users/adduser",
-        {
-          firstName,
-          lastName,
-          email,
-          password,
-          role,
-        }
-      );
+      const response = await axios.post("http://localhost:8080/api/users/adduser", {
+        firstName,
+        lastName,
+        email,
+        password,
+        role,
+      });
 
       if (response.status === 200) {
         // User created successfully
@@ -58,70 +45,91 @@ const AddEmployee = () => {
 
   return (
     <DashboardLayout>
-                   <form>
-      <MDBRow className='mb-4'>
-        <MDBCol>
-          <MDBInput id='First name' label='First name'
-           required
-           value={firstName}
-           onChange={(e) => setFirstName(e.target.value)}
-            />
-
-        </MDBCol>
-        <MDBCol>
-          <MDBInput id='Last name' label='Last name'
-             required
-             value={lastName}
-             onChange={(e) => setLastName(e.target.value)}
+      <Card>
+        <CardHeader>
+          <CardTitle className=' justify-center'>Add Employee</CardTitle>
+          <CardDescription>Fill out the form to add a new employee.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSignUp}>
+            <div className="mb-4">
+              <Label htmlFor="firstName">First Name</Label>
+              <Input
+                id="firstName"
+                required
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
               />
-        </MDBCol>
-      </MDBRow>
-
-      <MDBInput wrapperClass='mb-4' type='Email' id='Email' label='Email'
-       required
-       value={email}
-       onChange={(e) => setEmail(e.target.value)} />
-      <MDBInput wrapperClass='mb-4' type='password' id='Password'  label='Password' />
-
-      <div className="grid gap-2">
-  <Label htmlFor="role">Role</Label>
-  <RadioGroup
-    id="role"
-    value={role}
-    onValueChange={(newValue) => setRole(newValue)}
-  >
-    <div className="flex flex-col gap-2">
-      <div className="flex items-center">
-        <MDBRadio
-          name="role"
-          value="ADMIN"
-          id="role-admin"
-          label="Admin"
-          checked={role === "ADMIN"}
-          onChange={() => setRole("ADMIN")}
-        />
-      </div>
-      <div className="flex items-center">
-        <MDBRadio
-          name="role"
-          value="USER"
-          id="role-user"
-          label="User"
-          checked={role === "USER"}
-          onChange={() => setRole("USER")}
-        />
-      </div>
-    </div>
-  </RadioGroup>
-</div>
-
-     <br />
-
-      <MDBBtn className='mb-4' type='submit' block onClick={handleSignUp} >
-        Save Changes
-      </MDBBtn>
-    </form>
-    
+            </div>
+            <div className="mb-4">
+              <Label htmlFor="lastName">Last Name</Label>
+              <Input
+                id="lastName"
+                required
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
+            <div className="mb-4">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                type="email"
+                id="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="mb-4">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                type="password"
+                id="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="mb-4">
+              <Label htmlFor="role">Role</Label>
+              <RadioGroup
+                id="role"
+                value={role}
+                onValueChange={(newValue) => setRole(newValue)}
+              >
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center">
+                    <RadioGroupItem
+                      name="role"
+                      value="ADMIN"
+                      id="role-admin"
+                      label="Admin"
+                      checked={role === "ADMIN"}
+                      onChange={() => setRole("ADMIN")}
+                    />
+                    <Label htmlFor="role-admin">Admin</Label>
+                  </div>
+                  <div className="flex items-center">
+                    <RadioGroupItem
+                      name="role"
+                      value="USER"
+                      id="role-user"
+                      label="User"
+                      checked={role === "USER"}
+                      onChange={() => setRole("USER")}
+                    />
+                    <Label htmlFor="role-user">User</Label>
+                  </div>
+                </div>
+              </RadioGroup>
+            </div>
+            <Button type="submit" className="mb-4" block>
+              Save Changes
+            </Button>
+            {error && <p className="text-red-500">{error}</p>}
+          </form>
+        </CardContent>
+      </Card>
     </DashboardLayout>
   );
 };

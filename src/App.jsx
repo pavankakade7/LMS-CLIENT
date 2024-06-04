@@ -13,8 +13,8 @@ import Logout from './login/Logout'
 import DashboardLayout from './common/DashboardLayout'
 import EmployeeList from './employee/EmployeeList'
 import AddEmployee from './employee/AddEmployee'
-import 'mdb-react-ui-kit/dist/css/mdb.min.css';
-import "@fortawesome/fontawesome-free/css/all.min.css";
+// import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+// import "@fortawesome/fontawesome-free/css/all.min.css";
 
 
 
@@ -37,8 +37,8 @@ function App() {
         <Route path='/request-leave/:userId' element= {<RequestLeave/>} />
         <Route path='/leave-calendar' element={<LeaveCalendar/>} />
         <Route path='/employees' element={<Employees/>}/>
-        <Route path='/add-employee' element={<EmployeeComponent/>} />
-        <Route path='/update-employee/:id'element={<EmployeeComponent/>}/>
+        {/* <Route path='/add-employee' element={<EmployeeComponent/>} /> */}
+        {/* <Route path='/update-employee/:id'element={<EmployeeComponent/>}/> */}
         <Route path='/logout' element= {<Logout/>} />
         
       </Routes>

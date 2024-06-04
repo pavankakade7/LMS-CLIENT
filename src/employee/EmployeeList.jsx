@@ -13,7 +13,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { listEmployees } from '@/services/EmployeeServices';
+import { listEmployees, listUsers } from '@/services/EmployeeServices';
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
@@ -24,7 +24,7 @@ const EmployeeList = () => {
   }, []);
 
   function getAllEmployees() {
-    listEmployees()
+    listUsers()
       .then((response) => {
         setEmployees(response.data);
       })
@@ -50,24 +50,26 @@ const EmployeeList = () => {
                     <TableHead className="px-4 py-2">First Name</TableHead>
                     <TableHead className="px-4 py-2">Last Name</TableHead>
                     <TableHead className="px-4 py-2">Email</TableHead>
-                    <TableHead className="px-4 py-2">Phone</TableHead>
+                    <TableHead className="px-4 py-2">Role</TableHead>
+                    {/* <TableHead className="px-4 py-2">Phone</TableHead>
                     <TableHead className="px-4 py-2">Gender</TableHead>
                     <TableHead className="px-4 py-2">Department</TableHead>
-                    <TableHead className="px-4 py-2">Title</TableHead>
+                    <TableHead className="px-4 py-2">Title</TableHead> */}
                     {/* <TableHead className="px-4 py-2">Actions</TableHead> */}
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {employees.map((employee) => (
-                    <TableRow key={employee.empId}>
-                      <TableCell className="px-4 py-2">{employee.empId}</TableCell>
+                    <TableRow key={employee.userId}>
+                      <TableCell className="px-4 py-2">{employee.userId}</TableCell>
                       <TableCell className="px-4 py-2">{employee.firstName}</TableCell>
                       <TableCell className="px-4 py-2">{employee.lastName}</TableCell>
                       <TableCell className="px-4 py-2">{employee.email}</TableCell>
-                      <TableCell className="px-4 py-2">{employee.phone}</TableCell>
+                      <TableCell className="px-4 py-2">{employee.role}</TableCell>
+                      {/* <TableCell className="px-4 py-2">{employee.phone}</TableCell>
                       <TableCell className="px-4 py-2">{employee.gender}</TableCell>
                       <TableCell className="px-4 py-2">{employee.department}</TableCell>
-                      <TableCell className="px-4 py-2">{employee.title}</TableCell>
+                      <TableCell className="px-4 py-2">{employee.title}</TableCell> */}
                       {/* <TableCell className="px-4 py-2">Actions</TableCell> Add appropriate actions */}
                     </TableRow>
                   ))}

@@ -16,7 +16,7 @@ export const deleteEmployee= (employeeId) => axios.delete(REST_API_BASE_URL + "/
 
 // user
 export const addUser= (user) => axios.post(REST_API_USER , user);
-
+export const listUsers = () => axios.get(REST_API_USER + "/" + "allusers");
 
 
 // leave -request

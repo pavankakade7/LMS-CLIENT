@@ -114,8 +114,8 @@ function RequestLeave() {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Apply Leave</AlertDialogTitle>
-          <AlertDialogDescription>
-            <div className="grid w-full items-center gap-4">
+          <AlertDialogDescription >
+            <div className="grid w-full items-center gap-4  " >
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="startDate">Start Date</Label>
                 <Popover>
@@ -168,7 +168,7 @@ function RequestLeave() {
                 </Popover>
               </div>
 
-              <div className="flex flex-col space-y-1.5">
+              <div className="flex flex-col space-y-1.5 ">
                 <Label htmlFor="leaveType">Leave Type</Label>
                 <Select onValueChange={setLeaveType}>
                   <SelectTrigger id="leaveType">
@@ -200,7 +200,7 @@ function RequestLeave() {
           </AlertDialogDescription>
         </AlertDialogHeader>
 
-        <AlertDialogFooter>
+        <AlertDialogFooter className='inline-block '>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction onClick={handleSubmit}>Submit</AlertDialogAction>
         </AlertDialogFooter>
