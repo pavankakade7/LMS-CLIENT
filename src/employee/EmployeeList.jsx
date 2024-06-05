@@ -40,7 +40,7 @@ const EmployeeList = () => {
           <CardHeader>
             <CardTitle>List of Employees</CardTitle>
           </CardHeader> */}
-          <ScrollArea className="h-50 rounded-md border">
+          <ScrollArea className="max-h-80   border">
             <CardContent>
               <Table className="w-full table-auto">
                 {/* <TableCaption>A list of your employees.</TableCaption> */}
