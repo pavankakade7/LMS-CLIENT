@@ -36,7 +36,7 @@ const AddEmployee = () => {
 
       if (response.status === 200) {
         // User created successfully
-        navigate("/login"); // Redirect to login after successful sign-up
+        navigate("/all-employee"); // Redirect to login after successful sign-up
       }
     } catch (error) {
       setError("Sign-up failed. Please try again.");

@@ -173,16 +173,16 @@ function RequestLeave() {
                 <Select onValueChange={setLeaveType}>
                   <SelectTrigger id="leaveType">
                     <SelectValue placeholder="Select" />
-                  </SelectTrigger>
+                  </SelectTrigger>  
                   <SelectContent position="popper">
-                    <SelectItem value="Casual">Casual leave</SelectItem>
-                    <SelectItem value="Half Casual">Half Casual leave</SelectItem>
-                    <SelectItem value="Medical">Medical leave</SelectItem>
-                    <SelectItem value="Half Medical">Half Medical leave</SelectItem>
-                    <SelectItem value="Privileged">Privileged leave</SelectItem>
-                    <SelectItem value="Half Privileged">Half Privileged leave</SelectItem>
-                    <SelectItem value="Unpaid">Unpaid leave</SelectItem>
-                    <SelectItem value="Half Unpaid">Half Unpaid leave</SelectItem>
+                    <SelectItem value="CASUAL">Casual leave</SelectItem>
+                    <SelectItem value="HALF CASUAL">Half Casual leave</SelectItem>
+                    <SelectItem value="MEDICAL">Medical leave</SelectItem>
+                    <SelectItem value="HALF MEDICAL">Half Medical leave</SelectItem>
+                    <SelectItem value="PRIVILEGED">Privileged leave</SelectItem>
+                    <SelectItem value="HALF PRIVILEGED">Half Privileged leave</SelectItem>
+                    <SelectItem value="UNPAID">Unpaid leave</SelectItem>
+                    <SelectItem value="HALF UNPAID">Half Unpaid leave</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

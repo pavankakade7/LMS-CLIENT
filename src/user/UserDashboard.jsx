@@ -10,9 +10,28 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 function UserDashboard() {
   const [leaveRequests, setLeaveRequests] = useState([]);
+  const [leaveData, setLeaveData] = useState({
+    casualLeaves: 0,
+    medicalLeaves: 0,
+    privilegedLeaves: 0,
+    unpaidLeaves: 0,
+  });
   const empId = localStorage.getItem("userId");
 
   useEffect(() => {
+    const fetchLeaveData = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/api/leave-data/user/${empId}`);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setLeaveData(data);
+      } catch (error) {
+        console.error("Error fetching leave data:", error);
+      }
+    };
+
     const fetchLeaveRequests = async () => {
       try {
         const response = await fetch(`http://localhost:8080/api/leave-requests/user/${empId}`);
@@ -20,8 +39,6 @@ function UserDashboard() {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-
-        // Sort the leave requests by leaveId in descending order
         const sortedData = data.sort((a, b) => b.leaveId - a.leaveId);
         setLeaveRequests(sortedData);
       } catch (error) {
@@ -29,21 +46,65 @@ function UserDashboard() {
       }
     };
 
+    fetchLeaveData();
     fetchLeaveRequests();
   }, [empId]);
 
-  const [leaveData, setLeaveData] = useState({
-    casualLeaves: 7,
-    medicalLeaves: 7,
-    privilegedLeaves: 20,
-    unpaidLeaves: 0,
-  });
- 
+  const handleLeaveRequestApproval = async (leaveId, status) => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/leave-requests/${leaveId}/status`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ status })
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const updatedRequest = await response.json();
+      
+      setLeaveRequests(prevRequests => 
+        prevRequests.map(request => 
+          request.leaveId === leaveId ? updatedRequest : request
+        )
+      );
+
+      if (status === 'APPROVED') {
+        adjustLeaveData(updatedRequest.leaveType);
+      }
+    } catch (error) {
+      console.error("Error updating leave request status:", error);
+    }
+  };
+
+  const adjustLeaveData = (leaveType) => {
+    setLeaveData(prevData => {
+      const newData = { ...prevData };
+      switch (leaveType) {
+        case 'CASUAL':
+          newData.casualLeaves -= 1;
+          break;
+        case 'MEDICAL':
+          newData.medicalLeaves -= 1;
+          break;
+        case 'PRIVILEGED':
+          newData.privilegedLeaves -= 1;
+          break;
+        case 'UNPAID':
+          newData.unpaidLeaves -= 1;
+          break;
+        default:
+          break;
+      }
+      return newData;
+    });
+  };
 
   return (
     <DashboardLayout>
       <div className="flex items-center">
-        <RequestLeave  />
+        <RequestLeave onLeaveRequestApproval={handleLeaveRequestApproval}  />
       </div>
       <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
@@ -104,7 +165,7 @@ function UserDashboard() {
                         <TableHead className="hidden sm:table-cell">End Date</TableHead>
                         <TableHead className="hidden sm:table-cell">Leave Type</TableHead>
                         <TableHead className="hidden sm:table-cell">Status</TableHead>
-                        {/* <TableHead className="hidden sm:table-cell text-right">Actions</TableHead> */}
+                
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -129,18 +190,6 @@ function UserDashboard() {
                                 {request.status}
                               </Badge>
                             </TableCell>
-                            {/* <TableCell className="text-right hidden sm:table-cell">
-                              {request.status === "PENDING" && (
-                                <>
-                                  <Button size="sm" variant="outline" onClick={() => handleLeaveRequestApproval(request.leaveId, "APPROVED")}>
-                                    Approve
-                                  </Button>
-                                  <Button size="sm" variant="outline" onClick={() => handleLeaveRequestApproval(request.leaveId, "REJECTED")}>
-                                    Reject
-                                  </Button>
-                                </>
-                              )}
-                            </TableCell> */}
                           </TableRow>
                         );
                       })}
